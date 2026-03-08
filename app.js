@@ -60,8 +60,7 @@
             twitter: $('#twitter').value.trim(),
             tiktok: $('#tiktok').value.trim(),
             youtube: $('#youtube').value.trim(),
-            behance: $('#behance').value.trim(),
-            dribbble: $('#dribbble').value.trim(),
+            facebook: $('#facebook').value.trim(),
             website: $('#website').value.trim(),
             profilePhoto: $('#profilePhoto').value.trim()
         };
@@ -385,6 +384,7 @@
         <div class="container">
             ${buildFooterSocials(safeInfo)}
             <p>&copy; ${new Date().getFullYear()} ${name}. All rights reserved.</p>
+            <p class="footer-credit">Made with <a href="https://r41cy.github.io/Auto-Portfolio-Generator/" target="_blank" rel="noopener">Auto Portfolio Generator</a></p>
         </div>
     </footer>
 
@@ -452,8 +452,7 @@
         twitter: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
         tiktok: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.18 8.18 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.18z"/></svg>',
         youtube: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>',
-        behance: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.767-.63.165-1.27.25-1.95.25H0V4.51h6.938v-.007zM6.545 10.16c.6 0 1.09-.15 1.47-.45.38-.3.57-.73.57-1.29 0-.31-.06-.57-.17-.78a1.35 1.35 0 0 0-.46-.5 1.86 1.86 0 0 0-.66-.27 3.35 3.35 0 0 0-.81-.1H3.01v3.39h3.534zm.19 5.47c.31 0 .6-.03.88-.1.28-.06.52-.17.72-.32.21-.15.37-.34.49-.57.12-.24.18-.54.18-.9 0-.71-.23-1.23-.68-1.56-.46-.32-1.07-.48-1.84-.48H3.01v3.93h3.725zM15.37 4.97h5.98v1.74h-5.98V4.97zM21.69 12.53c-.16-.57-.42-1.06-.75-1.47-.33-.42-.74-.74-1.23-.98-.49-.24-1.07-.36-1.73-.36-.65 0-1.22.12-1.7.36-.49.24-.9.56-1.22.98-.33.42-.57.91-.73 1.48-.15.57-.23 1.18-.23 1.84 0 .64.08 1.24.24 1.8.16.56.41 1.05.74 1.46.34.42.75.74 1.24.98.49.24 1.07.36 1.72.36.88 0 1.61-.24 2.18-.72.57-.47.96-1.16 1.15-2.06h-2.84c-.07.33-.25.6-.53.8-.28.2-.63.3-1.05.3-.56 0-.99-.16-1.28-.49-.3-.33-.48-.87-.52-1.61h6.32c.02-.69-.02-1.32-.18-1.87zM18.27 11.28c.04-.39.13-.73.27-1.01.14-.28.34-.5.6-.66.26-.16.58-.24.96-.24.43 0 .78.09 1.04.27.26.18.45.4.57.66.12.26.19.52.22.78.02.25.03.44.03.55h-3.77c.01-.12.03-.24.08-.35z"/></svg>',
-        dribbble: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>',
+        facebook: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',
         website: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
     };
 
@@ -467,6 +466,9 @@
         }
         if (platform === 'tiktok' && !value.startsWith('http')) {
             return 'https://tiktok.com/@' + value.replace(/^@/, '');
+        }
+        if (platform === 'facebook' && !value.startsWith('http')) {
+            return 'https://facebook.com/' + value.replace(/^@/, '');
         }
         if (platform === 'whatsapp') {
             const digits = value.replace(/[^0-9+]/g, '');
@@ -488,12 +490,11 @@
             { key: 'whatsapp', label: 'WhatsApp' },
             { key: 'linkedin', label: 'LinkedIn' },
             { key: 'github', label: 'GitHub' },
+            { key: 'facebook', label: 'Facebook' },
             { key: 'instagram', label: 'Instagram' },
             { key: 'twitter', label: 'X / Twitter' },
             { key: 'tiktok', label: 'TikTok' },
             { key: 'youtube', label: 'YouTube' },
-            { key: 'behance', label: 'Behance' },
-            { key: 'dribbble', label: 'Dribbble' },
             { key: 'website', label: 'Website' }
         ];
         let html = '';
@@ -514,12 +515,11 @@
             { key: 'whatsapp', label: 'WhatsApp', display: 'Chat on WhatsApp' },
             { key: 'linkedin', label: 'LinkedIn', display: 'LinkedIn Profile' },
             { key: 'github', label: 'GitHub', display: 'GitHub Profile' },
+            { key: 'facebook', label: 'Facebook', display: 'Facebook Profile' },
             { key: 'instagram', label: 'Instagram', display: info.instagram ? ('@' + info.instagram.replace(/^@|https?:\/\/(www\.)?instagram\.com\//g, '')) : '' },
             { key: 'twitter', label: 'X / Twitter', display: info.twitter ? ('@' + info.twitter.replace(/^@|https?:\/\/(www\.)?(twitter|x)\.com\//g, '')) : '' },
             { key: 'tiktok', label: 'TikTok', display: info.tiktok ? ('@' + info.tiktok.replace(/^@|https?:\/\/(www\.)?tiktok\.com\/@?/g, '')) : '' },
             { key: 'youtube', label: 'YouTube', display: 'YouTube Channel' },
-            { key: 'behance', label: 'Behance', display: 'Behance Portfolio' },
-            { key: 'dribbble', label: 'Dribbble', display: 'Dribbble Profile' },
             { key: 'website', label: 'Website', display: info.website ? info.website.replace(/^https?:\/\//, '') : '' }
         ];
         let html = '';
@@ -541,12 +541,11 @@
         const platforms = [
             { key: 'linkedin', label: 'LinkedIn' },
             { key: 'github', label: 'GitHub' },
+            { key: 'facebook', label: 'Facebook' },
             { key: 'instagram', label: 'Instagram' },
             { key: 'twitter', label: 'X / Twitter' },
             { key: 'tiktok', label: 'TikTok' },
-            { key: 'youtube', label: 'YouTube' },
-            { key: 'behance', label: 'Behance' },
-            { key: 'dribbble', label: 'Dribbble' }
+            { key: 'youtube', label: 'YouTube' }
         ];
         let links = '';
         platforms.forEach((pl) => {
@@ -938,6 +937,13 @@ body {
     display: inline-flex;
 }
 .footer-socials a:hover { color: var(--primary); transform: translateY(-2px); }
+.footer-credit {
+    margin-top: 8px; font-size: 12px; opacity: 0.6;
+}
+.footer-credit a {
+    color: var(--primary); text-decoration: none; font-weight: 500;
+}
+.footer-credit a:hover { text-decoration: underline; }
 
 /* Reveal Animation */
 .reveal {
@@ -961,24 +967,56 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
+    .container { padding: 0 16px; }
     .nav-links {
-        display: none; position: fixed; top: 60px; left: 0; right: 0;
+        display: none; position: fixed; top: 56px; left: 0; right: 0;
         background: var(--bg); flex-direction: column; padding: 24px; gap: 16px;
         border-bottom: 1px solid var(--border);
         backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     }
     .nav-links.open { display: flex; }
     .mobile-toggle { display: flex; }
-    .hero { padding: 100px 20px 80px; min-height: 90vh; }
-    .hero-name { font-size: clamp(32px, 10vw, 52px); }
-    .about-grid { grid-template-columns: 1fr; text-align: center; }
-    .about-photo-wrap { margin: 0 auto; width: 150px; height: 150px; }
+    .hero { padding: 90px 20px 60px; min-height: 85vh; min-height: 85dvh; }
+    .hero-name { font-size: clamp(28px, 10vw, 48px); }
+    .hero-title { font-size: clamp(16px, 4vw, 20px); }
+    .hero-bio { font-size: 15px; margin-bottom: 28px; }
+    .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
+    .hero-cta .btn { width: 100%; max-width: 280px; justify-content: center; }
+    .section { padding: 64px 0; }
+    .section-title { font-size: 26px; margin-bottom: 32px; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; gap: 28px; }
+    .about-photo-wrap { margin: 0 auto; width: 140px; height: 140px; }
+    .about-text p { font-size: 15px; }
     .social-links { justify-content: center; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: repeat(2, 1fr); }
-    .navbar { padding: 12px 20px; }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
+    .portfolio-card:hover { transform: none; }
+    .card-body { padding: 16px; }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .contact-card { padding: 20px 12px; }
+    .contact-card-icon { width: 40px; height: 40px; }
+    .navbar { padding: 12px 16px; }
+    .nav-brand { font-size: 20px; }
     .scroll-indicator { display: none; }
-    .btn { min-height: 44px; }
+    .btn { min-height: 44px; font-size: 14px; }
+    .footer { padding: 28px 0 24px; }
+    .footer-socials { gap: 12px; }
+}
+
+@media (max-width: 420px) {
+    .hero { padding: 80px 16px 48px; min-height: 80vh; min-height: 80dvh; }
+    .hero-greeting { font-size: 12px; letter-spacing: 3px; }
+    .hero-name { font-size: clamp(24px, 11vw, 40px); }
+    .section { padding: 48px 0; }
+    .section-title { font-size: 22px; margin-bottom: 24px; }
+    .about-photo-wrap { width: 120px; height: 120px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-card { flex-direction: row; text-align: left; gap: 12px; padding: 16px; }
+    .contact-card-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .contact-card-label { font-size: 13px; }
+    .contact-card-value { font-size: 11px; }
+    .navbar { padding: 10px 12px; }
+    .nav-brand { font-size: 18px; }
 }`;
     }
 
