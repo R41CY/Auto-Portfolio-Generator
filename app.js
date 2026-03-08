@@ -53,6 +53,7 @@
         return {
             fullName: $('#fullName').value.trim(),
             title: $('#title').value.trim(),
+            availability: $('#availability').value.trim(),
             bio: $('#bio').value.trim(),
             aboutMe: $('#aboutMe').value.trim(),
             email: $('#email').value.trim(),
@@ -280,6 +281,7 @@
     function generatePortfolioHTML(info, projects, theme, inline) {
         const name = escapeHtml(info.fullName || 'Your Name');
         const title = escapeHtml(info.title || 'Creative Professional');
+        const avail = escapeHtml(info.availability || '');
         const bio = escapeHtml(info.bio || '');
         const aboutMe = escapeHtml(info.aboutMe || '');
         const photo = escapeHtml(info.profilePhoto || '');
@@ -347,7 +349,11 @@
     </nav>
 
     <section id="home" class="hero">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
         <div class="hero-content">
+            ${avail ? `<div class="avail-badge"><span class="avail-dot"></span>${avail}</div>` : ''}
             <p class="hero-greeting">Hello, I'm</p>
             <h1 class="hero-name">${name}</h1>
             <p class="hero-title">${title}</p>
@@ -737,6 +743,61 @@ body {
 }
 .hero-content { position: relative; z-index: 1; }
 
+/* Availability Badge */
+.avail-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #4ade80; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    padding: 8px 20px; border-radius: 50px; margin-bottom: 24px;
+    opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.05s;
+}
+.avail-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    animation: availBlink 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes availBlink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); }
+    50% { opacity: 0.4; box-shadow: 0 0 4px rgba(34, 197, 94, 0.2); }
+}
+[data-theme="light"] .avail-badge {
+    background: rgba(34, 197, 94, 0.06); border-color: rgba(22, 163, 74, 0.3);
+    color: #16a34a;
+}
+
+/* Floating Hero Orbs */
+.hero-orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(${hexToRgb(p)}, 0.12), transparent 70%);
+    will-change: transform;
+}
+.hero-orb-1 {
+    width: 300px; height: 300px; top: 10%; left: -5%;
+    animation: orbFloat1 12s ease-in-out infinite;
+}
+.hero-orb-2 {
+    width: 200px; height: 200px; bottom: 15%; right: -3%;
+    animation: orbFloat2 10s ease-in-out infinite;
+}
+.hero-orb-3 {
+    width: 120px; height: 120px; top: 30%; right: 15%;
+    animation: orbFloat3 14s ease-in-out infinite;
+}
+@keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+}
+@keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-20px, 15px); }
+}
+@keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-15px, -25px); }
+}
+
 .hero-greeting, .hero-name, .hero-title, .hero-bio, .hero-cta {
     opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -758,9 +819,15 @@ body {
 .hero-name {
     font-size: clamp(40px, 8vw, 86px); font-weight: 900;
     line-height: 1.02; margin-bottom: 16px; letter-spacing: -0.04em;
-    background: linear-gradient(135deg, var(--text) 30%, var(--primary) 100%);
+    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--text) 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, nameShine 6s ease-in-out 1.5s infinite;
+}
+@keyframes nameShine {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 200% center; }
 }
 .hero-title {
     font-size: clamp(18px, 3vw, 24px); color: var(--text-secondary);
@@ -898,7 +965,14 @@ section[id] { scroll-margin-top: 70px; }
     background: linear-gradient(135deg, rgba(${hexToRgb(p)}, 0.05), transparent);
     opacity: 0; transition: opacity 0.4s ease; z-index: 0; pointer-events: none;
 }
+.portfolio-card::after {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+    transform: translateX(-100%); transition: none; pointer-events: none; z-index: 0;
+    border-radius: 20px;
+}
 .portfolio-card:hover::before { opacity: 1; }
+.portfolio-card:hover::after { transform: translateX(100%); transition: transform 0.8s ease; }
 .portfolio-card:hover {
     transform: translateY(-8px) scale(1.015);
     box-shadow: 0 24px 56px rgba(0,0,0,0.15), 0 0 0 1px rgba(${hexToRgb(p)}, 0.15), 0 0 40px rgba(${hexToRgb(p)}, 0.06);
@@ -1074,7 +1148,9 @@ section[id] { scroll-margin-top: 70px; }
     .nav-links.open { display: flex; }
     .mobile-toggle { display: flex; }
     .hero { padding: 90px 20px 60px; min-height: 85vh; min-height: 85dvh; }
-    .hero-name { font-size: clamp(28px, 10vw, 48px); }
+    .hero-orb { display: none; }
+    .avail-badge { font-size: 12px; padding: 6px 16px; margin-bottom: 18px; }
+    .hero-name { font-size: clamp(28px, 10vw, 48px); animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important; }
     .hero-title { font-size: clamp(16px, 4vw, 20px); }
     .hero-bio { font-size: 15px; margin-bottom: 28px; }
     .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
