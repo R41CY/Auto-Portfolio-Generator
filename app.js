@@ -284,7 +284,7 @@
 
         const projectCards = projects.map((p, idx) => buildProjectCard(p, idx)).join('\n            ');
 
-        const socialLinks = buildSocialLinks(safeInfo);
+        const hasProjects = projects.length > 0;
         const contactCards = buildContactCards(safeInfo);
 
         const cssContent = generatePortfolioCSS(theme);
@@ -293,8 +293,15 @@
         const styleTag = inline
             ? `<style>${cssContent}</style>`
             : '<link rel="stylesheet" href="style.css">';
-        // JS is always inlined to avoid Windows blocking .js files from ZIPs
         const scriptTag = `<script>${jsContent}<\/script>`;
+
+        const navPortfolioLink = hasProjects ? '<li><a href="#portfolio">Portfolio</a></li>' : '';
+        const heroPrimaryBtn = hasProjects
+            ? '<a href="#portfolio" class="btn btn-primary">View My Work</a>'
+            : '<a href="#contact" class="btn btn-primary">Get In Touch</a>';
+        const heroSecondaryBtn = hasProjects
+            ? '<a href="#contact" class="btn btn-outline">Get In Touch</a>'
+            : '<a href="#about" class="btn btn-outline">About Me</a>';
 
         return `<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -318,7 +325,7 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            ${navPortfolioLink}
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-right">
@@ -339,8 +346,8 @@
             <p class="hero-title">${title}</p>
             ${bio ? `<p class="hero-bio">${bio}</p>` : ''}
             <div class="hero-cta">
-                <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+                ${heroPrimaryBtn}
+                ${heroSecondaryBtn}
             </div>
         </div>
         <div class="scroll-indicator">
@@ -356,13 +363,12 @@
                 ${photo ? `<div class="about-photo-wrap"><img src="${photo}" alt="${name}" class="about-photo" loading="lazy"></div>` : ''}
                 <div class="about-text">
                     ${bio ? `<p>${bio}</p>` : `<p>${name} is a ${title.toLowerCase()} passionate about creating exceptional work.</p>`}
-                    ${socialLinks ? `<div class="social-links">${socialLinks}</div>` : ''}
                 </div>
             </div>
         </div>
     </section>
 
-    ${projects.length ? `<section id="portfolio" class="section portfolio">
+    ${hasProjects ? `<section id="portfolio" class="section portfolio">
         <div class="container">
             <h2 class="section-title reveal">My Work</h2>
             <div class="portfolio-grid">
@@ -486,32 +492,6 @@
             return 'mailto:' + value;
         }
         return value;
-    }
-
-    function buildSocialLinks(info) {
-        const platforms = [
-            { key: 'email', label: 'Email' },
-            { key: 'phone', label: 'Phone' },
-            { key: 'whatsapp', label: 'WhatsApp' },
-            { key: 'linkedin', label: 'LinkedIn' },
-            { key: 'github', label: 'GitHub' },
-            { key: 'facebook', label: 'Facebook' },
-            { key: 'threads', label: 'Threads' },
-            { key: 'instagram', label: 'Instagram' },
-            { key: 'twitter', label: 'X / Twitter' },
-            { key: 'tiktok', label: 'TikTok' },
-            { key: 'youtube', label: 'YouTube' },
-            { key: 'website', label: 'Website' }
-        ];
-        let html = '';
-        platforms.forEach((p) => {
-            if (info[p.key]) {
-                const href = normalizeSocialUrl(p.key, info[p.key]);
-                const target = (p.key === 'email' || p.key === 'phone') ? '' : ' target="_blank"';
-                html += `<a href="${href}"${target} class="social-link" title="${p.label}">${socialSVG[p.key]} ${p.label}</a>`;
-            }
-        });
-        return html;
     }
 
     function extractHandle(value, patterns) {
@@ -828,6 +808,7 @@ body::after {
 }
 
 /* Section */
+section[id] { scroll-margin-top: 70px; }
 .section { padding: 110px 0; position: relative; }
 .section:nth-child(even) { background: var(--bg-secondary); }
 .section-title {
@@ -859,20 +840,6 @@ body::after {
 }
 .about-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .about-text p { font-size: 16px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 24px; }
-.social-links { display: flex; gap: 10px; flex-wrap: wrap; }
-.about-grid.no-photo .social-links { justify-content: center; }
-.social-link {
-    display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
-    background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 50px;
-    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.social-link:hover {
-    border-color: var(--primary); color: var(--primary);
-    background: rgba(${hexToRgb(p)}, 0.06);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(${hexToRgb(p)}, 0.1);
-}
 
 /* Portfolio Grid */
 .portfolio-grid {
@@ -1074,7 +1041,6 @@ body::after {
     .about-grid { grid-template-columns: 1fr; text-align: center; gap: 28px; }
     .about-photo-wrap { margin: 0 auto; width: 160px; height: 160px; }
     .about-text p { font-size: 15px; }
-    .social-links { justify-content: center; }
     .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
     .portfolio-card:hover { transform: none; }
     .card-body { padding: 18px; }
@@ -1147,11 +1113,17 @@ body::after {
         if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Smooth Scroll
+    // Smooth Scroll with navbar offset
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
-            var target = document.querySelector(this.getAttribute('href'));
-            if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+            var href = this.getAttribute('href');
+            var target = document.querySelector(href);
+            if(target){
+                e.preventDefault();
+                var navH = navbar ? navbar.offsetHeight : 0;
+                var y = target.getBoundingClientRect().top + window.scrollY - navH;
+                window.scrollTo({top: y, behavior:'smooth'});
+            }
         });
     });
 
