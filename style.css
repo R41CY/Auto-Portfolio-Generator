@@ -43,52 +43,45 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    cursor: none;
 }
-a, button, select, input[type="color"], .btn, .btn-icon-sm, .form-section-toggle {
-    cursor: none;
-}
+*, *::before, *::after { cursor: none !important; }
 ::selection {
     background: rgba(108, 99, 255, 0.25);
     color: var(--text);
 }
 
 /* Custom cursor */
-.cursor-dot {
+.cursor-dot, .cursor-ring {
     position: fixed;
-    width: 8px;
-    height: 8px;
-    background: #fff;
     border-radius: 50%;
     pointer-events: none;
+    top: 0; left: 0;
+    will-change: transform;
+}
+.cursor-dot {
+    width: 8px; height: 8px;
+    background: #fff;
     z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-    box-shadow: 0 0 8px rgba(108, 99, 255, 0.6), 0 0 20px rgba(108, 99, 255, 0.3);
-    mix-blend-mode: screen;
+    box-shadow: 0 0 10px rgba(108, 99, 255, 0.7), 0 0 24px rgba(108, 99, 255, 0.3);
+    transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s, margin 0.2s;
 }
 .cursor-ring {
-    position: fixed;
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border: 1.5px solid rgba(108, 99, 255, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
     z-index: 99998;
-    transform: translate(-50%, -50%);
-    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s, margin 0.3s;
 }
 .cursor-dot.hovering {
-    width: 12px;
-    height: 12px;
+    width: 14px; height: 14px;
+    margin: -3px 0 0 -3px;
     background: var(--primary);
-    box-shadow: 0 0 12px rgba(108, 99, 255, 0.8), 0 0 30px rgba(108, 99, 255, 0.4);
+    box-shadow: 0 0 14px rgba(108, 99, 255, 0.9), 0 0 32px rgba(108, 99, 255, 0.4);
 }
 .cursor-ring.hovering {
-    width: 48px;
-    height: 48px;
+    width: 50px; height: 50px;
+    margin: -7px 0 0 -7px;
     border-color: rgba(108, 99, 255, 0.3);
-    background: rgba(108, 99, 255, 0.04);
+    background: rgba(108, 99, 255, 0.05);
 }
 
 .container {
@@ -781,12 +774,16 @@ body::before {
     width: 200%;
     height: 100%;
     background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
-    animation: shimmer 3s ease-in-out infinite;
+    transform: translateX(-50%);
 }
 
 @keyframes shimmer {
     0% { transform: translateX(-50%); }
     100% { transform: translateX(50%); }
+}
+
+.btn-generate:hover::after {
+    animation: shimmer 1.5s ease-in-out;
 }
 
 .btn-generate:hover {
@@ -1172,9 +1169,7 @@ body::before {
 
 /* Disable custom cursor on touch/small devices */
 @media (max-width: 768px) {
-    body, a, button, select, input[type="color"], .btn, .btn-icon-sm, .form-section-toggle {
-        cursor: auto !important;
-    }
+    *, *::before, *::after { cursor: auto !important; }
     .cursor-dot, .cursor-ring { display: none !important; }
 }
 

@@ -35,6 +35,25 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+        *, *::before, *::after { cursor: none !important; }
+        ::selection {
+            background: rgba(108, 99, 255, 0.25);
+            color: var(--text);
+        }
+        .cursor-dot, .cursor-ring {
+            position: fixed; border-radius: 50%; pointer-events: none; top: 0; left: 0; will-change: transform;
+        }
+        .cursor-dot {
+            width: 8px; height: 8px; background: #fff; z-index: 99999;
+            box-shadow: 0 0 10px rgba(108, 99, 255, 0.7), 0 0 24px rgba(108, 99, 255, 0.3);
+            transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s, margin 0.2s;
+        }
+        .cursor-ring {
+            width: 36px; height: 36px; border: 1.5px solid rgba(108, 99, 255, 0.5); z-index: 99998;
+            transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s, margin 0.3s;
+        }
+        .cursor-dot.hovering { width: 14px; height: 14px; margin: -3px 0 0 -3px; background: var(--primary); box-shadow: 0 0 14px rgba(108, 99, 255, 0.9), 0 0 32px rgba(108, 99, 255, 0.4); }
+        .cursor-ring.hovering { width: 50px; height: 50px; margin: -7px 0 0 -7px; border-color: rgba(108, 99, 255, 0.3); background: rgba(108, 99, 255, 0.05); }
 
         .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
 
@@ -280,6 +299,10 @@
         footer a:hover { text-decoration: underline; }
 
         /* Mobile */
+        @media (max-width: 768px) {
+            *, *::before, *::after { cursor: auto !important; }
+            .cursor-dot, .cursor-ring { display: none !important; }
+        }
         @media (max-width: 600px) {
             header h1 { font-size: 22px; }
             header { padding: 28px 0 24px; }
@@ -459,11 +482,36 @@
         </div>
     </footer>
 
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
     <script>
         function toggleStep(header) {
             var card = header.parentElement;
             card.classList.toggle('open');
         }
+
+        (function(){
+            if(window.matchMedia('(max-width:768px)').matches||'ontouchstart' in window) return;
+            var d=document.getElementById('cursor-dot'),r=document.getElementById('cursor-ring');
+            if(!d||!r) return;
+            var mx=-100,my=-100,rx=-100,ry=-100,hov=false;
+            document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;},{passive:true});
+            document.addEventListener('mouseleave',function(){d.style.opacity='0';r.style.opacity='0';});
+            document.addEventListener('mouseenter',function(){d.style.opacity='1';r.style.opacity='1';});
+            (function tick(){
+                rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+                d.style.transform='translate3d('+(mx-4)+'px,'+(my-4)+'px,0)';
+                r.style.transform='translate3d('+(rx-18)+'px,'+(ry-18)+'px,0)';
+                requestAnimationFrame(tick);
+            })();
+            document.addEventListener('mouseover',function(e){
+                if(!hov&&e.target.closest('a,button,.step-header')){hov=true;d.classList.add('hovering');r.classList.add('hovering');}
+            });
+            document.addEventListener('mouseout',function(e){
+                if(hov&&e.target.closest('a,button,.step-header')){hov=false;d.classList.remove('hovering');r.classList.remove('hovering');}
+            });
+        })();
     </script>
 </body>
 </html>
