@@ -111,6 +111,12 @@ body {
     opacity: 0;
     animation: welcomeFadeIn 0.4s ease forwards;
 }
+.welcome-overlay, .welcome-overlay *, .welcome-overlay *::before, .welcome-overlay *::after {
+    cursor: auto !important;
+}
+.welcome-overlay .welcome-btn, .welcome-overlay button {
+    cursor: pointer !important;
+}
 .welcome-overlay.hidden {
     animation: welcomeFadeOut 0.4s ease forwards;
     pointer-events: none;
