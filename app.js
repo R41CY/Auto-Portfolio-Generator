@@ -514,20 +514,28 @@
         return html;
     }
 
+    function extractHandle(value, patterns) {
+        if (!value) return value;
+        let clean = value;
+        patterns.forEach((p) => { clean = clean.replace(p, ''); });
+        clean = clean.replace(/\/+$/, '');
+        return clean ? '@' + clean : value;
+    }
+
     function buildContactCards(info) {
         const platforms = [
             { key: 'email', label: 'Email', display: info.email },
             { key: 'phone', label: 'Phone', display: info.phone },
-            { key: 'whatsapp', label: 'WhatsApp', display: 'Chat on WhatsApp' },
-            { key: 'linkedin', label: 'LinkedIn', display: 'LinkedIn Profile' },
-            { key: 'github', label: 'GitHub', display: 'GitHub Profile' },
-            { key: 'facebook', label: 'Facebook', display: 'Facebook Profile' },
-            { key: 'threads', label: 'Threads', display: info.threads ? ('@' + info.threads.replace(/^@|https?:\/\/(www\.)?threads\.net\/@?/g, '')) : '' },
-            { key: 'instagram', label: 'Instagram', display: info.instagram ? ('@' + info.instagram.replace(/^@|https?:\/\/(www\.)?instagram\.com\//g, '')) : '' },
-            { key: 'twitter', label: 'X / Twitter', display: info.twitter ? ('@' + info.twitter.replace(/^@|https?:\/\/(www\.)?(twitter|x)\.com\//g, '')) : '' },
-            { key: 'tiktok', label: 'TikTok', display: info.tiktok ? ('@' + info.tiktok.replace(/^@|https?:\/\/(www\.)?tiktok\.com\/@?/g, '')) : '' },
-            { key: 'youtube', label: 'YouTube', display: 'YouTube Channel' },
-            { key: 'website', label: 'Website', display: info.website ? info.website.replace(/^https?:\/\//, '') : '' }
+            { key: 'whatsapp', label: 'WhatsApp', display: info.whatsapp },
+            { key: 'linkedin', label: 'LinkedIn', display: info.linkedin ? extractHandle(info.linkedin, [/^https?:\/\/(www\.)?linkedin\.com\/in\//]) : '' },
+            { key: 'github', label: 'GitHub', display: info.github ? extractHandle(info.github, [/^https?:\/\/(www\.)?github\.com\//]) : '' },
+            { key: 'facebook', label: 'Facebook', display: info.facebook ? extractHandle(info.facebook, [/^@/, /^https?:\/\/(www\.)?(facebook|fb)\.com\//]) : '' },
+            { key: 'threads', label: 'Threads', display: info.threads ? extractHandle(info.threads, [/^@/, /^https?:\/\/(www\.)?threads\.net\/@?/]) : '' },
+            { key: 'instagram', label: 'Instagram', display: info.instagram ? extractHandle(info.instagram, [/^@/, /^https?:\/\/(www\.)?instagram\.com\//]) : '' },
+            { key: 'twitter', label: 'X / Twitter', display: info.twitter ? extractHandle(info.twitter, [/^@/, /^https?:\/\/(www\.)?(twitter|x)\.com\//]) : '' },
+            { key: 'tiktok', label: 'TikTok', display: info.tiktok ? extractHandle(info.tiktok, [/^@/, /^https?:\/\/(www\.)?tiktok\.com\/@?/]) : '' },
+            { key: 'youtube', label: 'YouTube', display: info.youtube ? info.youtube.replace(/^https?:\/\/(www\.)?youtube\.com\/?/, '').replace(/\/$/, '') || 'YouTube' : '' },
+            { key: 'website', label: 'Website', display: info.website ? info.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '' }
         ];
         let html = '';
         platforms.forEach((p) => {
