@@ -1203,4 +1203,61 @@ body::before {
     .generate-center .step-title { font-size: 20px; }
     .generate-hero-icon { width: 56px !important; height: 56px !important; }
     .step-nav .btn { padding: 10px 16px; font-size: 13px; }
+    .music-player { bottom: 16px; right: 16px; padding: 8px 12px 8px 8px; }
+    .music-btn { width: 30px; height: 30px; }
+}
+
+/* ===== Music Player ===== */
+.music-player {
+    position: fixed; bottom: 24px; right: 24px; z-index: 300;
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(15, 14, 30, 0.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 16px 10px 10px;
+    transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s, transform 0.3s;
+}
+.music-player:hover {
+    border-color: rgba(108, 99, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(108, 99, 255, 0.15);
+}
+.music-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none; color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 12px rgba(108, 99, 255, 0.4);
+}
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.6);
+}
+.music-btn svg { width: 16px; height: 16px; }
+.icon-pause { display: none; }
+.music-player.playing .icon-play { display: none; }
+.music-player.playing .icon-pause { display: block; }
+
+.music-bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+.music-bars span {
+    display: block; width: 3px; border-radius: 2px;
+    background: var(--primary-light);
+    animation: musicBar 1s ease-in-out infinite;
+    transform-origin: bottom;
+}
+.music-bars span:nth-child(1) { animation-delay: 0s; animation-duration: 0.9s; }
+.music-bars span:nth-child(2) { animation-delay: 0.2s; animation-duration: 0.7s; }
+.music-bars span:nth-child(3) { animation-delay: 0.1s; animation-duration: 1.1s; }
+.music-bars span:nth-child(4) { animation-delay: 0.3s; animation-duration: 0.8s; }
+
+@keyframes musicBar {
+    0%, 100% { height: 4px; background: var(--primary-light); }
+    50% { height: 16px; background: #a3e635; }
+}
+.music-player:not(.playing) .music-bars span {
+    animation-play-state: paused; height: 4px;
+}
+.music-player.at-footer {
+    opacity: 0; pointer-events: none; transform: translateY(12px);
 }

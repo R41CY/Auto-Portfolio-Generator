@@ -321,6 +321,18 @@
         </div>
     </main>
 
+    <!-- Music Player -->
+    <div class="music-player" id="music-player">
+        <button class="music-btn" id="music-btn" aria-label="Toggle background music">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <div class="music-bars" id="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <audio id="bg-music" src="music.mp3" loop preload="auto"></audio>
+
     <footer class="app-footer">
         <div class="container">
             <p>Auto Portfolio Generator &mdash; Built for creators who want to stand out.</p>
@@ -415,6 +427,36 @@
                 hov=false;d.classList.remove('hovering');r.classList.remove('hovering');
             }
         });
+    })();
+    </script>
+    <script>
+    (function(){
+        var audio=document.getElementById('bg-music');
+        var btn=document.getElementById('music-btn');
+        var panel=document.getElementById('music-player');
+        var footer=document.querySelector('.app-footer');
+        if(!audio||!btn||!panel) return;
+        audio.volume=0.05;
+        function setPlaying(on){panel.classList.toggle('playing',on);}
+        function play(){audio.play().then(function(){setPlaying(true);}).catch(function(){setPlaying(false);});}
+        btn.addEventListener('click',function(e){
+            e.stopPropagation();
+            if(audio.paused){play();}else{audio.pause();setPlaying(false);}
+        });
+        var started=false;
+        function onFirst(){
+            if(started) return;
+            audio.play().then(function(){started=true;setPlaying(true);}).catch(function(){});
+        }
+        ['click','scroll','keydown','touchstart'].forEach(function(evt){
+            window.addEventListener(evt,onFirst,{once:false,passive:true});
+        });
+        if(footer){
+            window.addEventListener('scroll',function(){
+                var r=footer.getBoundingClientRect();
+                panel.classList.toggle('at-footer',r.top<window.innerHeight);
+            },{passive:true});
+        }
     })();
     </script>
     <script>
