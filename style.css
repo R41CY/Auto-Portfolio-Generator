@@ -103,15 +103,13 @@ body {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     opacity: 0;
-    animation: welcomeFadeIn 0.5s ease forwards;
+    animation: welcomeFadeIn 0.4s ease forwards;
 }
 .welcome-overlay.hidden {
     animation: welcomeFadeOut 0.4s ease forwards;
@@ -166,13 +164,9 @@ body {
     border: 1px solid rgba(108, 99, 255, 0.2);
     color: var(--primary);
     margin-bottom: 20px;
-    animation: welcomeIconPulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 0 6px rgba(108, 99, 255, 0.1);
     position: relative;
     z-index: 1;
-}
-@keyframes welcomeIconPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.2); }
-    50% { box-shadow: 0 0 0 12px rgba(108, 99, 255, 0); }
 }
 
 .welcome-title {
@@ -320,13 +314,7 @@ body::before {
 .logo-icon {
     color: var(--primary);
     flex-shrink: 0;
-    filter: drop-shadow(0 0 8px rgba(108, 99, 255, 0.4));
-    animation: logoPulse 3s ease-in-out infinite;
-}
-
-@keyframes logoPulse {
-    0%, 100% { filter: drop-shadow(0 0 8px rgba(108, 99, 255, 0.4)); }
-    50% { filter: drop-shadow(0 0 16px rgba(108, 99, 255, 0.6)); }
+    filter: drop-shadow(0 0 10px rgba(108, 99, 255, 0.5));
 }
 
 .logo-text {
@@ -385,12 +373,6 @@ body::before {
     border-color: var(--primary);
     color: #fff;
     box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.2), 0 0 20px rgba(108, 99, 255, 0.3);
-    animation: activeGlow 2s ease-in-out infinite;
-}
-
-@keyframes activeGlow {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.2), 0 0 20px rgba(108, 99, 255, 0.2); }
-    50% { box-shadow: 0 0 0 6px rgba(108, 99, 255, 0.15), 0 0 28px rgba(108, 99, 255, 0.35); }
 }
 
 .step-indicator.completed .step-circle {
