@@ -1,8 +1,11 @@
+<!-- (c) 2026 Raicy. All Rights Reserved. Protected by Raicy. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Raicy">
+    <meta name="copyright" content="(c) 2026 Raicy. All Rights Reserved.">
     <title>How to Put Your Portfolio Online — Easy Guide</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c63ff' stroke-width='2.5'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -512,6 +515,21 @@
                 if(hov&&e.target.closest('a,button,.step-header')){hov=false;d.classList.remove('hovering');r.classList.remove('hovering');}
             });
         })();
+    </script>
+    <script>
+    (function(){
+        var toast=document.createElement('div');
+        toast.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#1a1a2e;color:#9898b8;font-size:13px;padding:10px 22px;border-radius:10px;border:1px solid rgba(108,99,255,0.2);z-index:999999;opacity:0;transition:all 0.3s ease;pointer-events:none;font-family:Inter,system-ui,sans-serif';
+        toast.textContent='Source code is protected';
+        document.body.appendChild(toast);
+        function showToast(){toast.style.opacity='1';toast.style.transform='translateX(-50%) translateY(0)';clearTimeout(toast._t);toast._t=setTimeout(function(){toast.style.opacity='0';toast.style.transform='translateX(-50%) translateY(60px)';},2000);}
+        document.addEventListener('contextmenu',function(e){e.preventDefault();showToast();});
+        document.addEventListener('keydown',function(e){
+            if(e.key==='F12'){e.preventDefault();showToast();return;}
+            if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();showToast();return;}
+            if(e.ctrlKey&&(e.key==='u'||e.key==='U'||e.key==='s'||e.key==='S')){e.preventDefault();showToast();return;}
+        });
+    })();
     </script>
 </body>
 </html>
