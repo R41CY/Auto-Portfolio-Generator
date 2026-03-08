@@ -54,6 +54,7 @@
             fullName: $('#fullName').value.trim(),
             title: $('#title').value.trim(),
             bio: $('#bio').value.trim(),
+            aboutMe: $('#aboutMe').value.trim(),
             email: $('#email').value.trim(),
             phone: $('#phone').value.trim(),
             whatsapp: $('#whatsapp').value.trim(),
@@ -280,6 +281,7 @@
         const name = escapeHtml(info.fullName || 'Your Name');
         const title = escapeHtml(info.title || 'Creative Professional');
         const bio = escapeHtml(info.bio || '');
+        const aboutMe = escapeHtml(info.aboutMe || '');
         const photo = escapeHtml(info.profilePhoto || '');
 
         const safeInfo = {};
@@ -314,10 +316,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${name} — ${title}</title>
-    <meta name="description" content="${bio || title}">
+    <meta name="description" content="${aboutMe || bio || title}">
     <meta name="author" content="${name}">
     <meta property="og:title" content="${name} — ${title}">
-    <meta property="og:description" content="${bio || title}">
+    <meta property="og:description" content="${aboutMe || bio || title}">
     <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -367,7 +369,7 @@
             <div class="about-grid${photo ? '' : ' no-photo'} reveal">
                 ${photo ? `<div class="about-photo-wrap"><img src="${photo}" alt="${name}" class="about-photo" loading="lazy"></div>` : ''}
                 <div class="about-text">
-                    ${bio ? `<p>${bio}</p>` : `<p>${name} is a ${title.toLowerCase()} passionate about creating exceptional work.</p>`}
+                    ${aboutMe ? `<p>${aboutMe}</p>` : bio ? `<p>${bio}</p>` : `<p>${name} is a ${title.toLowerCase()} passionate about creating exceptional work.</p>`}
                 </div>
             </div>
         </div>
